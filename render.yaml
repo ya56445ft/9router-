@@ -1,0 +1,47 @@
+services:
+  - type: web
+    name: 9router
+    runtime: image
+    plan: free
+
+    image:
+      url: docker.io/decolua/9router:latest
+
+    envVars:
+      - key: PORT
+        value: "20128"
+
+      - key: HOSTNAME
+        value: "0.0.0.0"
+
+      - key: NODE_ENV
+        value: "production"
+
+      - key: DATA_DIR
+        value: "/app/data"
+
+      - key: INITIAL_PASSWORD
+        sync: false
+
+      - key: JWT_SECRET
+        generateValue: true
+
+      - key: API_KEY_SECRET
+        generateValue: true
+
+      - key: MACHINE_ID_SALT
+        generateValue: true
+
+      - key: REQUIRE_API_KEY
+        value: "true"
+
+      - key: AUTH_COOKIE_SECURE
+        value: "true"
+
+      - key: BASE_URL
+        value: "${RENDER_EXTERNAL_URL}"
+
+      - key: NEXT_PUBLIC_BASE_URL
+        value: "${RENDER_EXTERNAL_URL}"
+
+    healthCheckPath: /api/health
